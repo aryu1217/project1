@@ -1,14 +1,11 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import LoginStatus from "./login-status";
+import { Bell } from "lucide-react";
 
 export default function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   return (
-    <div className="border-b border-[#6A7183]  p-4">
+    <div className="border-b border-[#6A7183] p-4">
       <div className="flex justify-between w-full max-w-screen-2xl mx-auto items-center">
         <Link href="/home" className="flex cursor-pointer">
           <Image
@@ -22,27 +19,49 @@ export default function Navbar() {
             내가본거
           </div>
         </Link>
+
         <form>
           <input
             type="text"
             placeholder="영화 검색..."
-            className="
-              px-3 py-1.5 rounded-xl w-[350px]
-              text-sm text-black placeholder-gray-400 focus:outline-none
-            "
+            className="px-3 py-1.5 rounded-xl w-[350px] text-sm text-black placeholder-gray-400 focus:outline-none"
           />
         </form>
-        <ul className="flex gap-6 text-sm">
+
+        <ul className="flex text-sm items-center gap-2">
           <li>
-            <Link href="/movie-list">영화목록</Link>
+            <Link
+              href="/movie-list"
+              className="w-24 h-8 flex items-center justify-center rounded-full hover:bg-[#6A7183] transition text-white"
+            >
+              영화목록
+            </Link>
           </li>
           <li>
-            <Link href="/my-view">내 감상기록</Link>
+            <Link
+              href="/my-view"
+              className="w-24 h-8 flex items-center justify-center rounded-full hover:bg-[#6A7183] transition text-white"
+            >
+              내 감상기록
+            </Link>
           </li>
-          <li>친구</li>
-          <li>알림</li>
           <li>
-            <Link href="/login">로그인</Link>
+            <Link
+              href="/your-view"
+              className="w-24 h-8 flex items-center justify-center rounded-full hover:bg-[#6A7183] transition text-white"
+            >
+              너가본거
+            </Link>
+          </li>
+          <li>
+            <div className="w-8 h-8 flex mx-3 items-center justify-center rounded-full hover:bg-[#6A7183] transition">
+              <Bell className="w-4 h-4 text-white" />
+            </div>
+          </li>
+          <li>
+            <div className="h-8 flex items-center justify-center rounded-full hover:bg-[#6A7183] transition">
+              <LoginStatus />
+            </div>
           </li>
         </ul>
       </div>
