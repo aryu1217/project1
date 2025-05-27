@@ -1,17 +1,15 @@
+import RegisterForm from "@/components/register-form";
+
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth-option";
 import { redirect } from "next/navigation";
 
-export default async function MyView() {
+export default async function Register() {
   const session = await getServerSession(authOptions);
 
-  if (!session) {
-    redirect("/login");
+  if (session) {
+    redirect("/home");
   }
 
-  return (
-    <>
-      <p className="mt-6 text-white">내 감상 기록</p>
-    </>
-  );
+  return <RegisterForm />;
 }

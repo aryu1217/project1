@@ -58,7 +58,7 @@ export default function LoginStatus() {
         onClick={toggleDropdown}
         className="flex items-center gap-2 cursor-pointer"
       >
-        <span className="text-white">{session.user.name}</span>
+        <span className="text-white">{session.user.nickname}</span>
         <Image
           src={session.user.image}
           alt="User Avatar"
@@ -83,7 +83,7 @@ export default function LoginStatus() {
             업적
           </Link>
           <button
-            onClick={() => signOut()}
+            onClick={() => signOut({ callbackUrl: "/login" })}
             className="w-full text-left px-3 py-2 hover:bg-[#434445] rounded"
           >
             로그아웃
