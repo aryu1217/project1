@@ -31,10 +31,10 @@ export default function Navbar() {
         <ul className="flex text-sm items-center gap-2">
           <li>
             <Link
-              href="/movie-list"
+              href="/content-list/drama"
               className="w-24 h-8 flex items-center justify-center rounded-full hover:bg-[#6A7183] transition text-white"
             >
-              영화목록
+              볼거리들
             </Link>
           </li>
           <li>
