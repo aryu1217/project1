@@ -1,7 +1,6 @@
 "use client";
 
 import ContentsList from "@/components/contents-list";
-import { fetchGlobalPopularDramas, fetchKorPopularDramas } from "@/lib/tmdb";
 import { useEffect, useState } from "react";
 
 export default function DramaPage() {
@@ -10,17 +9,20 @@ export default function DramaPage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch("/api/dramas/korean");
+      const res = await fetch(
+        selected === "kor" ? "/api/dramas/korean" : "/api/dramas/global"
+      );
+
       const data = await res.json();
       setDramas(data.results);
     };
 
     fetchData();
-  }, []);
+  }, [selected]);
 
   return (
     <>
-      <div className="flex mx-auto w-[1400px] bg-[#FFFFFF]/10 rounded-full p-1">
+      <div className="flex mx-auto w-[1470px] bg-[#FFFFFF]/10 rounded-full p-1">
         <button
           onClick={() => setSelected("kor")}
           className={`flex-1 px-4 py-1 rounded-full transition-all
@@ -39,11 +41,7 @@ export default function DramaPage() {
         </button>
       </div>
 
-      {dramas ? (
-        <ContentsList contents={dramas} />
-      ) : (
-        <p className="text-white">로딩 중...</p>
-      )}
+      <ContentsList contents={dramas} />
     </>
   );
 }

@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function ContentCard({ title, imagePath }) {
   return (
-    <div className="bg-gray-800 rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow duration-300 w-[260px] h-[410px] flex-col">
+    <div className="bg-gray-800 rounded-lg p-4 shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 w-[260px] h-[410px] flex-col">
       <div className="aspect-[2/3] w-full relative rounded-lg overflow-hidden mb-4 mx-auto">
         <Image
           src={`https://image.tmdb.org/t/p/w500${imagePath}`}
