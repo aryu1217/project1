@@ -1,31 +1,29 @@
 export async function GET() {
   const currentYear = new Date().getFullYear();
-  const airDateGte = `${currentYear}-01-01`;
+  const releaseDateGte = `${currentYear}-01-01`;
 
   const url =
-    "https://api.themoviedb.org/3/discover/tv?" +
+    `https://api.themoviedb.org/3/discover/movie?` +
     new URLSearchParams({
       api_key: process.env.TMDB_API_KEY,
       language: "ko-KR",
       with_origin_country: "KR",
-      with_genres: "18", // 드라마 장르
+      include_adult: "false",
       sort_by: "popularity.desc",
-      "first_air_date.gte": airDateGte, // 현재 연도 기준 최신 드라마
+      "primary_release_date.gte": releaseDateGte,
     });
 
   const res = await fetch(url);
 
   if (!res.ok) {
-    const errorText = await res.text();
-    console.error("❌ TMDB 응답 오류", res.status, errorText);
-    return new Response("TMDB fetch failed", { status: res.status });
+    return new Response("국내 영화 가져오기 실패!", { status: res.status });
   }
 
   try {
     const data = await res.json();
+    console.log(data);
     return Response.json(data);
-  } catch (e) {
-    console.error("❌ JSON 파싱 실패:", e);
+  } catch {
     return new Response("Invalid JSON response from TMDB", { status: 500 });
   }
 }

@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import LoginStatus from "./login-status";
 import { Bell } from "lucide-react";
+import { Search } from "lucide-react";
 
 export default function Navbar() {
   return (
@@ -20,12 +21,18 @@ export default function Navbar() {
           </div>
         </Link>
 
-        <form>
+        <form className="relative">
           <input
             type="text"
             placeholder="영화 검색..."
-            className="px-3 py-1.5 rounded-xl w-[350px] text-sm text-black placeholder-gray-400 focus:outline-none"
+            className="bg-[#141517] border border-[#6A7183] px-5 py-2 rounded-3xl w-[450px] text-md text-[#dee2ea] placeholder-gray-400 focus:outline-none"
           />
+          <button
+            type="submit"
+            className="absolute inset-y-0 right-5 flex items-center justify-center"
+          >
+            <Search className="w-4 h-4 text-gray-400" />
+          </button>
         </form>
 
         <ul className="flex text-sm items-center gap-2">

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 export default function DramaPage() {
   const [selected, setSelected] = useState("kor");
-  const [dramas, setDramas] = useState(null); // ✅ 초기값 null
+  const [dramas, setDramas] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {

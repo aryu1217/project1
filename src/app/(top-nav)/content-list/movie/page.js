@@ -1,7 +1,6 @@
 "use client";
 
 import ContentsList from "@/components/contents-list";
-import { redirect } from "next/dist/server/api-utils";
 import { useEffect, useState } from "react";
 
 export default function MoviePage() {
@@ -10,17 +9,20 @@ export default function MoviePage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch("/api/dramas/global");
+      const res = await fetch(
+        selected === "kor" ? "/api/movies/korean" : "/api/movies/global"
+      );
+
       const data = await res.json();
       setDramas(data.results);
     };
 
     fetchData();
-  }, []);
+  }, [selected]);
 
   return (
     <>
-      <div className="flex mx-auto w-[1400px] bg-[#FFFFFF]/10 rounded-full p-1">
+      <div className="flex mx-auto w-[1470px] bg-[#FFFFFF]/10 rounded-full p-1">
         <button
           onClick={() => setSelected("kor")}
           className={`flex-1 px-4 py-1 rounded-full transition-all
@@ -39,12 +41,7 @@ export default function MoviePage() {
         </button>
       </div>
 
-      {/* 여기 조건 추가 */}
-      {dramas ? (
-        <ContentsList contents={dramas} />
-      ) : (
-        <p className="text-white mt-6">로딩 중...</p>
-      )}
+      <ContentsList contents={dramas} />
     </>
   );
 }
