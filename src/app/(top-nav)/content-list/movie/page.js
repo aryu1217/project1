@@ -1,20 +1,25 @@
 "use client";
 
 import ContentsList from "@/components/contents-list";
+import LoadingSpinner from "@/components/loading-spinner";
 import { useEffect, useState } from "react";
 
 export default function MoviePage() {
   const [selected, setSelected] = useState("kor");
-  const [dramas, setDramas] = useState(null);
+  const [movies, setMovies] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
+      setMovies(null);
       const res = await fetch(
         selected === "kor" ? "/api/movies/korean" : "/api/movies/global"
       );
 
       const data = await res.json();
-      setDramas(data.results);
+      setIsLoading(false);
+      setMovies(data.results);
     };
 
     fetchData();
@@ -41,7 +46,13 @@ export default function MoviePage() {
         </button>
       </div>
 
-      <ContentsList contents={dramas} />
+      {isLoading ? (
+        <div className="w-full h-[300px] flex justify-center items-center">
+          <LoadingSpinner />
+        </div>
+      ) : (
+        <ContentsList contents={movies} />
+      )}
     </>
   );
 }

@@ -1,20 +1,25 @@
 "use client";
 
 import ContentsList from "@/components/contents-list";
+import LoadingSpinner from "@/components/loading-spinner";
 import { useEffect, useState } from "react";
 
 export default function DramaPage() {
   const [selected, setSelected] = useState("kor");
   const [dramas, setDramas] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
+      setDramas(null);
       const res = await fetch(
         selected === "kor" ? "/api/dramas/korean" : "/api/dramas/global"
       );
 
       const data = await res.json();
       setDramas(data.results);
+      setIsLoading(false);
     };
 
     fetchData();
@@ -41,7 +46,13 @@ export default function DramaPage() {
         </button>
       </div>
 
-      <ContentsList contents={dramas} />
+      {isLoading ? (
+        <div className="w-full h-[300px] flex justify-center items-center">
+          <LoadingSpinner />
+        </div>
+      ) : (
+        <ContentsList contents={dramas} />
+      )}
     </>
   );
 }

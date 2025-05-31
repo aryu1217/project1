@@ -24,7 +24,13 @@ export async function GET() {
 
   try {
     const data = await res.json();
-    return Response.json(data);
+
+    const modifiedResults = data.results.map((item) => ({
+      ...item,
+      type: "drama",
+    }));
+
+    return Response.json({ ...data, results: modifiedResults });
   } catch (e) {
     console.error("❌ JSON 파싱 실패:", e);
     return new Response("Invalid JSON response from TMDB", { status: 500 });
