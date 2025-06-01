@@ -2,12 +2,7 @@ import MovieCard from "./content-card";
 
 export default function ContentsList({ contents }) {
   if (!contents) {
-    return (
-      // <div className="w-full h-[300px] flex items-center justify-center">
-      //   <LoadingSpinner />
-      // </div>
-      null
-    );
+    return null;
   }
 
   return (

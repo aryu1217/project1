@@ -7,7 +7,13 @@ export default async function ContentPage(props) {
   );
 
   if (!res.ok) {
-    return <div className="text-white p-10">콘텐츠를 불러오지 못했습니다.</div>;
+    if (!res.ok) {
+      const errorText = await res.text();
+      console.error("❌ TMDB fetch error:", res.status, errorText);
+      return (
+        <div className="text-white p-10">콘텐츠를 불러오지 못했습니다.</div>
+      );
+    }
   }
 
   const data = await res.json();
