@@ -1,10 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 export default function CategoryToggle() {
   const [selected, setSelected] = useState("drama");
+  const path = usePathname();
+  console.log(path);
 
   return (
     <div className="flex gap-10 relative w-fit">

@@ -1,8 +1,8 @@
-export default function DramaLayout({ children, modal }) {
+export default function DramaLayout({ modal, children }) {
   return (
     <>
-      {children}
       {modal}
+      {children}
     </>
   );
 }

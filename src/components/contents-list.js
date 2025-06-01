@@ -1,5 +1,4 @@
 import MovieCard from "./content-card";
-import LoadingSpinner from "./loading-spinner";
 
 export default function ContentsList({ contents }) {
   if (!contents) {
