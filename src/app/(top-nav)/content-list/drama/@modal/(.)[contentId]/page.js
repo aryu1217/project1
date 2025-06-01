@@ -1,3 +1,4 @@
+// page.js (server component, ✅ no "use client")
 import { notFound } from "next/navigation";
 import ModalBackdrop from "@/components/modal-backdrop";
 
@@ -10,7 +11,7 @@ export default async function DramaModal(props) {
   );
 
   if (!res.ok) {
-    notFound(); // TMDB에 없는 ID면 404
+    notFound();
   }
 
   const data = await res.json();
@@ -18,8 +19,8 @@ export default async function DramaModal(props) {
   return (
     <>
       <ModalBackdrop />
-      <dialog open className="modal z-50 border-none bg-transparent">
-        <div className="p-6 w-[600px] bg-[#1F1F1F] text-white rounded-xl relative shadow-2xl">
+      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
+        <div className="bg-[#1F1F1F] text-white rounded-xl p-6 w-[600px] shadow-2xl relative">
           <h1 className="text-2xl font-bold mb-3">{data.name}</h1>
           <p className="text-sm text-gray-400 mb-2">
             방영일: {data.first_air_date}
@@ -28,7 +29,7 @@ export default async function DramaModal(props) {
             {data.overview}
           </p>
         </div>
-      </dialog>
+      </div>
     </>
   );
 }
