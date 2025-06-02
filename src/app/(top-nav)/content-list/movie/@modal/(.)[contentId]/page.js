@@ -1,11 +1,11 @@
 import { notFound } from "next/navigation";
 import ModalBackdrop from "@/components/modal-backdrop";
 
-export default async function DramaModal(props) {
+export default async function MovieModal(props) {
   const { contentId } = await props.params;
 
   const res = await fetch(
-    `https://api.themoviedb.org/3/tv/${contentId}?language=ko-KR&api_key=${process.env.TMDB_API_KEY}`,
+    `https://api.themoviedb.org/3/movie/${contentId}?language=ko-KR&api_key=${process.env.TMDB_API_KEY}`,
     { next: { revalidate: 60 } }
   );
 

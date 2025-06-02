@@ -1,4 +1,4 @@
-export default function DramaLayout({ modal, children }) {
+export default function MovieLayout({ modal, children }) {
   return (
     <>
       {children}
