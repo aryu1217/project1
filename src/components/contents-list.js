@@ -1,6 +1,6 @@
 import MovieCard from "./content-card";
 
-export default function ContentsList({ contents }) {
+export default function ContentsList({ contents, page }) {
   if (!contents) {
     return null;
   }
@@ -15,6 +15,7 @@ export default function ContentsList({ contents }) {
           ranking={index}
           contentId={content.id}
           type={content.type}
+          page={page}
         />
       ))}
     </div>

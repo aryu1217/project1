@@ -5,7 +5,7 @@ import LoadingSpinner from "@/components/loading-spinner";
 import { useEffect, useState } from "react";
 
 export default function MoviePage() {
-  const [selected, setSelected] = useState("kor");
+  const [selected, setSelected] = useState("korean");
   const [movies, setMovies] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -14,7 +14,7 @@ export default function MoviePage() {
       setIsLoading(true);
       setMovies(null);
       const res = await fetch(
-        selected === "kor" ? "/api/movies/korean" : "/api/movies/global"
+        selected === "korean" ? "/api/movies/korean" : "/api/movies/global"
       );
 
       const data = await res.json();
@@ -29,9 +29,11 @@ export default function MoviePage() {
     <>
       <div className="flex mx-auto w-[1470px] bg-[#FFFFFF]/10 rounded-full p-1">
         <button
-          onClick={() => setSelected("kor")}
+          onClick={() => setSelected("korean")}
           className={`flex-1 px-4 py-1 rounded-full transition-all
-          ${selected === "kor" ? "bg-[#141517] text-white" : "text-[#FFFFFF]"}`}
+          ${
+            selected === "korean" ? "bg-[#141517] text-white" : "text-[#FFFFFF]"
+          }`}
         >
           국내
         </button>

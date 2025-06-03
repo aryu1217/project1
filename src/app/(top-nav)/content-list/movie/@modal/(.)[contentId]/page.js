@@ -20,9 +20,9 @@ export default async function MovieModal(props) {
       <ModalBackdrop />
       <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
         <div className="bg-[#1F1F1F] text-white rounded-xl p-6 w-[600px] shadow-2xl relative">
-          <h1 className="text-2xl font-bold mb-3">{data.name}</h1>
+          <h1 className="text-2xl font-bold mb-3">{data.title}</h1>
           <p className="text-sm text-gray-400 mb-2">
-            방영일: {data.first_air_date}
+            개봉일: {data.release_date}
           </p>
           <p className="text-base leading-relaxed text-gray-300">
             {data.overview}

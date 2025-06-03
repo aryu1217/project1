@@ -1,4 +1,7 @@
-export async function GET() {
+export async function GET(request) {
+  const { searchParams } = new URL(request.url);
+  const page = searchParams.get("page") || "1";
+
   const currentYear = new Date().getFullYear();
   const airDateGte = `${currentYear}-01-01`;
 
@@ -7,10 +10,11 @@ export async function GET() {
     new URLSearchParams({
       api_key: process.env.TMDB_API_KEY,
       language: "ko-KR",
-      with_origin_country: "KR",
-      with_genres: "18", // 드라마 장르
+      with_origin_country: "KR", // 한국 드라마만
+      with_genres: "18",
       sort_by: "popularity.desc",
-      "first_air_date.gte": airDateGte, // 현재 연도 기준 최신 드라마
+      "first_air_date.gte": airDateGte,
+      page,
     });
 
   const res = await fetch(url);
