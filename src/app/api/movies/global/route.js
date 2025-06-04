@@ -1,4 +1,7 @@
-export async function GET() {
+export async function GET(request) {
+  const { searchParams } = new URL(request.url);
+  const page = searchParams.get("page") || "1";
+
   const currentYear = new Date().getFullYear();
   const releaseDateGte = `${currentYear}-01-01`;
 
@@ -11,6 +14,7 @@ export async function GET() {
       include_adult: "false",
       sort_by: "popularity.desc",
       "primary_release_date.gte": releaseDateGte,
+      page,
     });
 
   const res = await fetch(url);
