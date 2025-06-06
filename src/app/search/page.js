@@ -1,7 +1,9 @@
+import SearchContentList from "@/components/search-contentList";
+
 export default async function SearchPage({ searchParams }) {
   const { query } = await searchParams;
 
-  if (!query) return <p>검색어가 없습니다.</p>;
+  if (!query) return <p className="text-white">검색어가 없습니다.</p>;
 
   const encoded = encodeURIComponent(query);
 
@@ -13,15 +15,17 @@ export default async function SearchPage({ searchParams }) {
   if (!res.ok) throw new Error("검색 결과를 가져오는 데 실패했습니다.");
 
   const data = await res.json();
+  console.log(data);
 
   return (
-    <div className="text-white p-6">
-      <h1 className="text-xl mb-4">🔍 {query} 검색 결과</h1>
-      <ul className="space-y-2">
-        {data.results.map((item) => (
-          <li key={item.id}>{item.title || item.name}</li>
-        ))}
-      </ul>
-    </div>
+    <>
+      {data.total_results === 0 ? (
+        <div className="flex justify-center items-center w-full h-[300px]">
+          <p className="text-white text-lg">🔍 검색 결과가 없습니다.</p>
+        </div>
+      ) : (
+        <SearchContentList contents={data.results} />
+      )}
+    </>
   );
 }
