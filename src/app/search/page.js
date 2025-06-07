@@ -1,3 +1,31 @@
+// import SearchContentList from "@/components/search-contentList";
+
+// export default async function SearchPage({ searchParams }) {
+//   const { query } = searchParams;
+
+//   if (!query) return <p className="text-white">검색어가 없습니다.</p>;
+
+//   const res = await fetch(`/api/search?query=${encodeURIComponent(query)}`, {
+//     cache: "no-store",
+//   });
+
+//   if (!res.ok) throw new Error("검색 실패");
+
+//   const data = await res.json();
+
+//   return (
+//     <>
+//       {data.results.length === 0 ? (
+//         <div className="flex justify-center items-center w-full h-[300px]">
+//           <p className="text-white text-lg">🔍 검색 결과가 없습니다.</p>
+//         </div>
+//       ) : (
+//         <SearchContentList contents={data.results} />
+//       )}
+//     </>
+//   );
+// }
+
 import SearchContentList from "@/components/search-contentList";
 
 export default async function SearchPage({ searchParams }) {

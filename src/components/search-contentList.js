@@ -7,7 +7,7 @@ export default function SearchContentList({ contents }) {
   );
 
   return (
-    <div className="flex flex-col gap-6 items-start p-10">
+    <div className="flex flex-col items-start p-10 pt-4">
       {filteredContents.map((content) => (
         <SearchContentCard
           key={content.id}
@@ -20,6 +20,7 @@ export default function SearchContentList({ contents }) {
               ? content.media_type
               : "unknown"
           }
+          releaseDate={content.release_date || content.first_air_date}
         />
       ))}
     </div>
