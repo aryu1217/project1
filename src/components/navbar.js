@@ -16,6 +16,7 @@ export default function Navbar() {
             width={50}
             height={50}
             className="self-center mr-3"
+            priority
           />
           <div className="flex text-2xl font-bold text-white items-center tracking-wider">
             내가본거

@@ -14,8 +14,14 @@ export default function SearchContentCard({
 
   const handleClick = () => {
     if (type === "unknown") return;
-    if (type === "tv") type = "drama";
-    router.push(`/content-list/${type}/${contentId}`, { scroll: false });
+
+    const actualType = type === "tv" ? "drama" : type;
+
+    setTimeout(() => {
+      router.push(`/content-list/${actualType}/${contentId}`, {
+        scroll: false,
+      });
+    }, 1);
   };
 
   return (
@@ -23,14 +29,20 @@ export default function SearchContentCard({
       onClick={handleClick}
       className="flex gap-10 cursor-pointer w-full border-b border-[#6A7183] p-5"
     >
-      <div className="w-[200px] h-[300px] relative flex-shrink-0">
-        <Image
-          src={`https://image.tmdb.org/t/p/w500${imagePath}`}
-          alt={title || "포스터 이미지"}
-          fill
-          sizes="200px"
-          className="rounded-lg object-cover"
-        />
+      <div className="w-[200px] h-[300px] relative flex-shrink-0 rounded-lg overflow-hidden bg-gray-700">
+        {imagePath ? (
+          <Image
+            src={`https://image.tmdb.org/t/p/w500${imagePath}`}
+            alt={title || "포스터 이미지"}
+            fill
+            sizes="200px"
+            className="object-cover"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-white text-sm">
+            No Image
+          </div>
+        )}
       </div>
 
       <div className="flex flex-col justify-center h-[300px] overflow-hidden text-left">

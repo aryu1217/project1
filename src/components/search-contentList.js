@@ -8,9 +8,9 @@ export default function SearchContentList({ contents }) {
 
   return (
     <div className="flex flex-col items-start p-10 pt-4">
-      {filteredContents.map((content) => (
+      {filteredContents.map((content, index) => (
         <SearchContentCard
-          key={content.id}
+          key={`${content.media_type}-${content.id}=${index}`}
           title={content.title || content.name}
           imagePath={content.poster_path}
           contentId={content.id}
