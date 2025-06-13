@@ -7,8 +7,13 @@ import StarRating from "@/components/star-rating";
 import WatchDateSelector from "@/components/watch-date-selector";
 import LoadingSpinner from "@/components/loading-spinner";
 import { WatchedAddButton } from "@/components/watched-add-button";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function ReviewForm() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
   const path = usePathname();
   const type = path.split("/")[2]; // movie | drama
   const contentId = path.split("/")[3]; // ex) 12345
@@ -17,6 +22,12 @@ export default function ReviewForm() {
   const [data, setData] = useState(null);
   const [watchDate, setWatchDate] = useState("");
   const [review, setReview] = useState("");
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/login");
+    }
+  }, [status, router]);
 
   useEffect(() => {
     if (!type || !contentId) return;
@@ -40,6 +51,14 @@ export default function ReviewForm() {
 
     fetchData();
   }, [type, contentId]);
+
+  if (status === "loading") {
+    return (
+      <div className="flex items-center justify-center w-full h-[600px]">
+        <LoadingSpinner />
+      </div>
+    );
+  }
 
   if (!data) {
     return (
@@ -87,22 +106,21 @@ export default function ReviewForm() {
           {data.overview || "개요 정보가 없습니다."}
         </p>
 
-        <div className="flex flex-col gap-3">
-          <StarRating rating={rating} setRating={setRating} />
-          <p className="text-gray-400 text-sm">{rating}점</p>
-        </div>
+        <form className="flex-1 flex flex-col gap-4">
+          <div className="flex flex-col gap-3">
+            <StarRating rating={rating} setRating={setRating} />
+            <p className="text-gray-400 text-sm">{rating}점</p>
+          </div>
 
-        <WatchDateSelector date={watchDate} setDate={setWatchDate} />
+          <WatchDateSelector date={watchDate} setDate={setWatchDate} />
 
-        {/* ✨ textarea height = auto grow to fill remaining space */}
-        <div className="flex-1 flex flex-col">
           <textarea
             value={review}
             onChange={(e) => setReview(e.target.value)}
             placeholder="리뷰를 작성하세요..."
-            className="w-full flex-1 p-4 bg-[#2a2a2a] text-white border border-gray-600 rounded-lg resize-none focus:outline-none"
+            className="flex-1 min-h-[150px] p-4 bg-[#2a2a2a] text-white border border-gray-600 rounded-lg resize-none focus:outline-none"
           ></textarea>
-        </div>
+        </form>
       </div>
     </div>
   );
